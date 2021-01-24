@@ -65,6 +65,38 @@
             <x-jet-input id="email" type="email" class="mt-1 block w-full" wire:model.defer="state.email" />
             <x-jet-input-error for="email" class="mt-2" />
         </div>
+
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="address.street" value="{{ __('Logradouro') }}" />
+            <x-jet-input id="address.street" type="text" class="mt-1 block w-full" wire:model.defer="state.address.street" />
+            <x-jet-input-error for="address.street" class="mt-2" />
+        </div>
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="address.number" value="{{ __('Número') }}" />
+            <x-jet-input id="address.number" type="number" class="mt-1 block w-full" wire:model.defer="state.address.number" />
+            <x-jet-input-error for="address.number" class="mt-2" />
+        </div>
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="address.complement" value="{{ __('Complemento') }}" />
+            <x-jet-input id="address.complement" type="text" class="mt-1 block w-full" wire:model.defer="state.address.complement" />
+            <x-jet-input-error for="address.complement" class="mt-2" />
+        </div>
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="address.neighborhood" value="{{ __('Bairro') }}" />
+            <x-jet-input id="address.neighborhood" type="text" class="mt-1 block w-full" wire:model.defer="state.address.neighborhood" />
+            <x-jet-input-error for="address.neighborhood" class="mt-2" />
+        </div>
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="address.city" value="{{ __('Cidade') }}" />
+            <x-jet-input id="address.city" type="text" class="mt-1 block w-full" wire:model.defer="state.address.city" />
+            <x-jet-input-error for="address.city" class="mt-2" />
+        </div>
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="address.state" value="{{ __('Estado') }}" />
+            <x-jet-input id="address.state" type="text" class="mt-1 block w-full" wire:model.defer="state.address.state" />
+            <x-jet-input-error for="address.state" class="mt-2" />
+        </div>
+
     </x-slot>
 
     <x-slot name="actions">
