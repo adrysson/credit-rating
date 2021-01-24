@@ -8,7 +8,6 @@
 
         <form method="POST" action="{{ route('register') }}">
             @csrf
-
             <div>
                 <x-jet-label for="name" value="{{ __('Name') }}" />
                 <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
@@ -17,6 +16,31 @@
             <div class="mt-4">
                 <x-jet-label for="email" value="{{ __('Email') }}" />
                 <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+            </div>
+
+            <div class="mt-4">
+                <x-jet-label for="address.street" value="{{ __('Logradouro') }}" />
+                <x-jet-input id="address.street" class="block mt-1 w-full" type="text" name="address[street]" :value="old('address.street')" required />
+            </div>
+            <div class="mt-4">
+                <x-jet-label for="address.number" value="{{ __('Número') }}" />
+                <x-jet-input id="address.number" class="block mt-1 w-full" type="number" name="address[number]" :value="old('address.number')" required />
+            </div>
+            <div class="mt-4">
+                <x-jet-label for="address.complement" value="{{ __('Complemento') }}" />
+                <x-jet-input id="address.complement" class="block mt-1 w-full" type="text" name="address[complement]" :value="old('address.complement')" />
+            </div>
+            <div class="mt-4">
+                <x-jet-label for="address.neighborhood" value="{{ __('Bairro') }}" />
+                <x-jet-input id="address.neighborhood" class="block mt-1 w-full" type="text" name="address[neighborhood]" :value="old('address.neighborhood')" required />
+            </div>
+            <div class="mt-4">
+                <x-jet-label for="address.city" value="{{ __('Cidade') }}" />
+                <x-jet-input id="address.city" class="block mt-1 w-full" type="text" name="address[city]" :value="old('address.city')" required />
+            </div>
+            <div class="mt-4">
+                <x-jet-label for="address.state" value="{{ __('Estado') }}" />
+                <x-jet-input id="address.state" class="block mt-1 w-full" type="text" name="address[state]" :value="old('address.state')" required />
             </div>
 
             <div class="mt-4">
