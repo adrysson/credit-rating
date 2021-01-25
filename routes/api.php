@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\CitizenAssetController;
 use App\Http\Controllers\Api\V1\CitizenController;
 use App\Http\Controllers\Api\V1\PersonController;
 use App\Http\Controllers\Api\V1\PersonDebtController;
@@ -22,5 +23,6 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::apiResource('persons', PersonController::class)->except('index');
         Route::apiResource('persons.debts', PersonDebtController::class);
         Route::apiResource('citizens', CitizenController::class)->except('index');
+        Route::apiResource('citizens.assets', CitizenAssetController::class);
     });
 });

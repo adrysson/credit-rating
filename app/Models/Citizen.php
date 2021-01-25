@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Jenssegers\Mongodb\Eloquent\Model;
 
 class Citizen extends Model
@@ -40,6 +39,11 @@ class Citizen extends Model
     protected $casts = [
         'address' => 'json',
     ];
+
+    public function assets()
+    {
+        return $this->embedsMany(Asset::class);
+    }
 
     /**
      * Get the route key for the model.
