@@ -68,4 +68,26 @@ class Person extends Model
         return 'cpf';
     }
 
+    /**
+     * Set the person's cpf.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setCpfAttribute($value)
+    {
+        $this->attributes['cpf'] = md5(env('APP_KEY') . $value);
+    }
+
+    /**
+     * Retrieve the model for a bound value.
+     *
+     * @param  mixed  $value
+     * @param  string|null  $field
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
+    public function resolveRouteBinding($value, $field = null)
+    {
+        return $this->where($this->getRouteKeyName(), md5(env('APP_KEY') . $value))->firstOrFail();
+    }
 }

@@ -17,5 +17,6 @@ class PersonSeeder extends Seeder
         Person::factory()
             ->count(500)
             ->create();
+        Person::factory(['cpf' => '161.761.547-15'])->create();
     }
 }
