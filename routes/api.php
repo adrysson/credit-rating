@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\CitizenController;
 use App\Http\Controllers\Api\V1\PersonController;
 use App\Http\Controllers\Api\V1\PersonDebtController;
 use Illuminate\Http\Request;
@@ -18,7 +19,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::prefix('v1')->group(function () {
-        Route::resource('persons', PersonController::class)->except('index');
-        Route::resource('users.debts', PersonDebtController::class);
+        Route::apiResource('persons', PersonController::class)->except('index');
+        Route::apiResource('persons.debts', PersonDebtController::class);
+        Route::apiResource('citizens', CitizenController::class)->except('index');
     });
 });
