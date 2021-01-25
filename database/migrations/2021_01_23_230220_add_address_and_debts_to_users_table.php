@@ -15,7 +15,6 @@ class AddAddressAndDebtsToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->json('address');
-            $table->json('debts')->nullable();
         });
     }
 
@@ -28,7 +27,6 @@ class AddAddressAndDebtsToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('address');
-            $table->dropColumn('debts');
         });
     }
 }

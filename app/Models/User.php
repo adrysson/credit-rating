@@ -76,4 +76,13 @@ class User extends Authenticatable
         });
     }
 
+    /**
+     * Get all of the user's registered debts.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function debts()
+    {
+        return $this->hasMany(Debt::class);
+    }
 }
