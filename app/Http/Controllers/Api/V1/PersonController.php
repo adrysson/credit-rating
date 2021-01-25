@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PersonRequest;
 use App\Models\Person;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class PersonController extends Controller
 {
@@ -26,8 +27,9 @@ class PersonController extends Controller
      * @param  \App\Models\Person  $person
      * @return \Illuminate\Http\Response
      */
-    public function show(Person $person)
+    public function show(Request $request, Person $person)
     {
+        Redis::set("person:$person->cpf:last-query", $request->user()->token()->client->name);
         return $person;
     }
 

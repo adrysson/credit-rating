@@ -7,6 +7,7 @@ use App\Http\Requests\CitizenAssetRequest;
 use App\Models\Asset;
 use App\Models\Citizen;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class CitizenAssetController extends Controller
 {
@@ -16,8 +17,9 @@ class CitizenAssetController extends Controller
      * @param  \App\Models\Citizen  $citizen
      * @return \Illuminate\Http\Response
      */
-    public function index(Citizen $citizen)
+    public function index(Request $request, Citizen $citizen)
     {
+        Redis::set("person:$citizen->cpf:last-query", $request->user()->token()->client->name);
         return $citizen->assets;
     }
 
@@ -41,8 +43,9 @@ class CitizenAssetController extends Controller
      * @param  \App\Models\Asset  $asset
      * @return \Illuminate\Http\Response
      */
-    public function show(Citizen $citizen, Asset $asset)
+    public function show(Request $request, Citizen $citizen, Asset $asset)
     {
+        Redis::set("person:$citizen->cpf:last-query", $request->user()->token()->client->name);
         return $asset;
     }
 

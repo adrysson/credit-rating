@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CitizenRequest;
 use App\Models\Citizen;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class CitizenController extends Controller
 {
@@ -26,8 +27,9 @@ class CitizenController extends Controller
      * @param  \App\Models\Citizen  $citizen
      * @return \Illuminate\Http\Response
      */
-    public function show(Citizen $citizen)
+    public function show(Request $request, Citizen $citizen)
     {
+        Redis::set("person:$citizen->cpf:last-query", $request->user()->token()->client->name);
         return $citizen;
     }
 

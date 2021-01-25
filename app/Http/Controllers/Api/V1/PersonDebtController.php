@@ -7,6 +7,7 @@ use App\Http\Requests\PersonDebtRequest;
 use App\Models\Debt;
 use App\Models\Person;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class PersonDebtController extends Controller
 {
@@ -16,8 +17,9 @@ class PersonDebtController extends Controller
      * @param  \App\Models\Person  $person
      * @return \Illuminate\Http\Response
      */
-    public function index(Person $person)
+    public function index(Request $request, Person $person)
     {
+        Redis::set("person:$person->cpf:last-query", $request->user()->token()->client->name);
         return $person->debts;
     }
 
@@ -42,8 +44,9 @@ class PersonDebtController extends Controller
      * @param  \App\Models\Debt  $debt
      * @return \Illuminate\Http\Response
      */
-    public function show(Person $person, Debt $debt)
+    public function show(Request $request, Person $person, Debt $debt)
     {
+        Redis::set("person:$person->cpf:last-query", $request->user()->token()->client->name);
         $this->authorize($person);
         return $debt;
     }

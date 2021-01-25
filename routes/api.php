@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\V1\CitizenAssetController;
 use App\Http\Controllers\Api\V1\CitizenController;
 use App\Http\Controllers\Api\V1\PersonController;
 use App\Http\Controllers\Api\V1\PersonDebtController;
+use App\Http\Controllers\Api\V1\PersonLastQueryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,5 +25,6 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::apiResource('persons.debts', PersonDebtController::class);
         Route::apiResource('citizens', CitizenController::class)->except('index');
         Route::apiResource('citizens.assets', CitizenAssetController::class);
+        Route::apiResource('persons.last-query', PersonLastQueryController::class)->only('index');
     });
 });
