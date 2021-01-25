@@ -2,7 +2,7 @@
 Proposta de plataforma para avaliação de crédito para fins de teste.
 
 ## Proposta
-A proposta do projeto está em um arquivo PDF na pasta docs, esta é a ideia final deste teste, mas não representa seu estado atual.
+A proposta do projeto está em um arquivo PDF na pasta docs, no documento está a ideia final deste teste, mas não representa seu estado atual.
 
 ## Instruções de instalação
 O projeto foi desenvolvido com docker, então basta ter o docker e o docker-compose instalado para conseguir rodar o projeto.
