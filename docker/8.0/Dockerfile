@@ -40,6 +40,12 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+RUN apt-get update && apt-get install --yes --no-install-recommends \
+    libssl-dev
+
+RUN pecl install mongodb \
+    && apt-get install -y php8.0-mongodb
+
 RUN setcap "cap_net_bind_service=+ep" /usr/bin/php8.0
 
 RUN groupadd --force -g $WWWGROUP sail
