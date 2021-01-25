@@ -17,8 +17,7 @@ class PersonController extends Controller
      */
     public function store(PersonRequest $request)
     {
-        $person = new Person($request->all());
-        return $person->save();
+        return Person::create($request->all());
     }
 
     /**
