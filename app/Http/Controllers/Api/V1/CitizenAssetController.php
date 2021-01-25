@@ -57,7 +57,7 @@ class CitizenAssetController extends Controller
      * @param  \App\Models\Asset  $asset
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Citizen $citizen, Asset $asset)
+    public function update(CitizenAssetRequest $request, Citizen $citizen, Asset $asset)
     {
         return $asset->update($request->only('name', 'value'));
     }
