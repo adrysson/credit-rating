@@ -30,7 +30,7 @@ class DebtPolicy
      */
     public function view(User $user, Debt $debt)
     {
-        return $debt->user_id === $user->id;
+        return $debt->client->id === $user->token()->client_id;
     }
 
     /**
@@ -53,7 +53,7 @@ class DebtPolicy
      */
     public function update(User $user, Debt $debt)
     {
-        return $debt->user_id === $user->id;
+        return $debt->client->id === $user->token()->client_id;
     }
 
     /**
@@ -65,7 +65,7 @@ class DebtPolicy
      */
     public function delete(User $user, Debt $debt)
     {
-        return $debt->user_id === $user->id;
+        return $debt->client->id === $user->token()->client_id;
     }
 
     /**
@@ -77,7 +77,7 @@ class DebtPolicy
      */
     public function restore(User $user, Debt $debt)
     {
-        return $debt->user_id === $user->id;
+        return $debt->client->id === $user->token()->client_id;
     }
 
     /**
@@ -89,6 +89,6 @@ class DebtPolicy
      */
     public function forceDelete(User $user, Debt $debt)
     {
-        return $debt->user_id === $user->id;
+        return $debt->client->id === $user->token()->client_id;
     }
 }

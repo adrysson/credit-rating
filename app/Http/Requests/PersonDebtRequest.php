@@ -4,10 +4,10 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserDebtRequest extends FormRequest
+class PersonDebtRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the person is authorized to make this request.
      *
      * @return bool
      */

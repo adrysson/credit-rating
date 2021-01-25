@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Uuid;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,7 +10,6 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Passport\HasApiTokens;
-use Ramsey\Uuid\Uuid;
 
 class User extends Authenticatable
 {
@@ -18,6 +18,7 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use Uuid;
 
     public $incrementing = false;
 
@@ -29,9 +30,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'cpf',
         'password',
-        'address',
     ];
 
     /**
@@ -53,7 +52,6 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'address' => 'json',
     ];
 
     /**
@@ -64,36 +62,4 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
-
-    /**
-     * The "booted" method of the model.
-     *
-     * @return void
-     */
-    protected static function booted()
-    {
-        static::creating(function ($user) {
-            $user->id = Uuid::uuid4();
-        });
-    }
-
-    /**
-     * Get all of the user's registered debts.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\hasMany
-     */
-    public function debts()
-    {
-        return $this->hasMany(Debt::class);
-    }
-
-    /**
-     * Get the route key for the model.
-     *
-     * @return string
-     */
-    public function getRouteKeyName()
-    {
-        return 'cpf';
-    }
 }

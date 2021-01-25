@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Api\V1\UserController;
-use App\Http\Controllers\Api\V1\UserDebtController;
+use App\Http\Controllers\Api\V1\PersonController;
+use App\Http\Controllers\Api\V1\PersonDebtController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::prefix('v1')->group(function() {
-        Route::resource('users', UserController::class)->only('show');
-        Route::resource('users.debts', UserDebtController::class);
+    Route::prefix('v1')->group(function () {
+        Route::resource('persons', PersonController::class)->only('show');
+        Route::resource('users.debts', PersonDebtController::class)->except('update');
     });
 });

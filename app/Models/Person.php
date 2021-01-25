@@ -1,0 +1,71 @@
+<?php
+
+namespace App\Models;
+
+use App\Models\Traits\Uuid;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Person extends Model
+{
+    use HasFactory, Uuid;
+
+    public $incrementing = false;
+
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'persons';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'cpf',
+        'address',
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'cpf',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'address' => 'json',
+    ];
+
+    /**
+     * Get all of the user's registered debts.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function debts()
+    {
+        return $this->hasMany(Debt::class);
+    }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'cpf';
+    }
+
+}

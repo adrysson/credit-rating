@@ -15,7 +15,7 @@ class CreateDebtsTable extends Migration
     {
         Schema::create('debts', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('user_id')->constrained('users');
+            $table->foreignUuid('person_id')->constrained('persons');
             $table->foreignUuid('oauth_client_id')->constrained('oauth_clients');
             $table->float('value');
             $table->timestamps();

@@ -19,36 +19,6 @@
             </div>
 
             <div class="mt-4">
-                <x-jet-label for="cpf" value="{{ __('CPF') }}" />
-                <x-jet-input id="cpf" class="block mt-1 w-full" maxlength="15" type="text" name="cpf" :value="old('cpf')" required />
-            </div>
-
-            <div class="mt-4">
-                <x-jet-label for="address.street" value="{{ __('Logradouro') }}" />
-                <x-jet-input id="address.street" class="block mt-1 w-full" type="text" name="address[street]" :value="old('address.street')" required />
-            </div>
-            <div class="mt-4">
-                <x-jet-label for="address.number" value="{{ __('Número') }}" />
-                <x-jet-input id="address.number" class="block mt-1 w-full" type="number" name="address[number]" :value="old('address.number')" required />
-            </div>
-            <div class="mt-4">
-                <x-jet-label for="address.complement" value="{{ __('Complemento') }}" />
-                <x-jet-input id="address.complement" class="block mt-1 w-full" type="text" name="address[complement]" :value="old('address.complement')" />
-            </div>
-            <div class="mt-4">
-                <x-jet-label for="address.neighborhood" value="{{ __('Bairro') }}" />
-                <x-jet-input id="address.neighborhood" class="block mt-1 w-full" type="text" name="address[neighborhood]" :value="old('address.neighborhood')" required />
-            </div>
-            <div class="mt-4">
-                <x-jet-label for="address.city" value="{{ __('Cidade') }}" />
-                <x-jet-input id="address.city" class="block mt-1 w-full" type="text" name="address[city]" :value="old('address.city')" required />
-            </div>
-            <div class="mt-4">
-                <x-jet-label for="address.state" value="{{ __('Estado') }}" />
-                <x-jet-input id="address.state" class="block mt-1 w-full" type="text" name="address[state]" :value="old('address.state')" required />
-            </div>
-
-            <div class="mt-4">
                 <x-jet-label for="password" value="{{ __('Password') }}" />
                 <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
             </div>

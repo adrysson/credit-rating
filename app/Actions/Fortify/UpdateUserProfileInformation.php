@@ -22,26 +22,21 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
             'photo' => ['nullable', 'image', 'max:1024'],
-            'address' => ['required', 'array'],
-            'address.street' => ['required', 'string'],
-            'address.number' => ['required', 'integer'],
-            'address.neighborhood' => ['required', 'string'],
-            'address.city' => ['required', 'string'],
-            'address.state' => ['required', 'string'],
         ])->validateWithBag('updateProfileInformation');
 
         if (isset($input['photo'])) {
             $user->updateProfilePhoto($input['photo']);
         }
 
-        if ($input['email'] !== $user->email &&
-            $user instanceof MustVerifyEmail) {
+        if (
+            $input['email'] !== $user->email &&
+            $user instanceof MustVerifyEmail
+        ) {
             $this->updateVerifiedUser($user, $input);
         } else {
             $user->forceFill([
                 'name' => $input['name'],
                 'email' => $input['email'],
-                'address' => $input['address'],
             ])->save();
         }
     }
@@ -58,7 +53,6 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
         $user->forceFill([
             'name' => $input['name'],
             'email' => $input['email'],
-            'address' => $input['address'],
             'email_verified_at' => null,
         ])->save();
 
