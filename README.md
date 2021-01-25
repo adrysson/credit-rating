@@ -1,62 +1,103 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# credit-rating
+Proposta de plataforma para avaliação de crédito para fins de teste.
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Proposta
+A proposta do projeto está em um arquivo PDF na pasta docs, no documento está a ideia final deste teste, mas não representa seu estado atual.
 
-## About Laravel
+## Instruções de instalação
+O projeto foi desenvolvido com docker, então basta ter o docker e o docker-compose instalado para conseguir rodar o projeto.
+1. Clone o projeto:
+```
+git clone git@github.com:adrysson/credit-rating.git
+```
+2. Copie o arquivo de exemplo das variáveis de ambiente:
+```
+cp .env.example .env
+```
+3. Suba os containers da aplicação:
+```
+docker-compose up -d
+```
+4. Instale as dependências:
+```
+docker-compose exec laravel.test composer install
+```
+5. Gere a chave do Laravel:
+```
+docker-compose exec laravel.test php artisan key:generate
+```
+6. Rode as migrations para criar as tabelas no banco:
+```
+docker-compose exec laravel.test php artisan migrate --seed
+```
+7. A aplicação estará rodando no ambiente local na porta especificada na variável de ambiente "APP_PORT".
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Instruções de utilização
+1. Cadastre-se em /register
+2. Gere um password grant client pelo seguinte comando:
+```
+docker-compose exec laravel.test php artisan passport:client --password
+```
+3. Copie o client_id e o client_secret e envie no endpoint /oauth/token para obter o token de acesso à API, enviando os seguintes dados:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+```
+grant_type=password
+client_id=[SEU_CLIENT_ID]
+client_secret=[SEU_CLIENT_SECRET]
+username=[SEU_USERNAME]
+password=[SEU_PASSWORD]
+scope=
+```
+4. Com o token em mãos, você já pode utilizar os endpoints disponíveis na API. Para facilitar, há um registro de Seed com um CPF inserido manualmente, que é o 161.761.547-15, você já pode utilizá-lo para consultar.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Endpoints disponíveis
+Registros sensíveis dos CPFs:
+```
+Cadastrar CPF - POST /api/v1/persons
+Buscar CPF - GET /api/v1/persons/{cpf}
+Editar CPF - PUT /api/v1/persons/{cpf}
+Apagar CPF - DELETE /api/v1/persons/{cpf}
 
-## Learning Laravel
+Form:
+name, cpf, address[postcode], address[address], address[city], address[state]
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Registros das dívidas dos CPFs:
+```
+Listar dívidas - GET /api/v1/persons/{cpf}/debts
+Cadastrar dívida - POST /api/v1/persons/{cpf}/debts
+Buscar dívida - GET /api/v1/persons/{cpf}/debts/{debt_id}
+Editar dívida - PUT /api/v1/persons/{cpf}/debts/{debt_id}
+Apagar dívida - DELETE /api/v1/persons/{cpf}/debts/{debt_id}
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Form:
+value
+```
 
-## Laravel Sponsors
+Registros de cálculo de score de cŕedito dos CPFs:
+```
+Cadastrar CPF - POST /api/v1/citizens
+Buscar CPF - GET /api/v1/citizens/{cpf}
+Editar CPF - PUT /api/v1/citizens/{cpf}
+Apagar CPF - DELETE /api/v1/citizens/{cpf}
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Form:
+cpf, age, source_of_income, address[postcode], address[address], address[city], address[state]
+```
 
-### Premium Partners
+Registros dos bens dos CPFs:
+```
+Listar bens - GET /api/v1/citizens/{cpf}/assets
+Cadastrar bem - POST /api/v1/citizens/{cpf}/assets
+Buscar bem - GET /api/v1/citizens/{cpf}/assets/{asset_id}
+Editar bem - PUT /api/v1/citizens/{cpf}/assets/{asset_id}
+Apagar bem - DELETE /api/v1/citizens/{cpf}/assets/{asset_id}
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
+Form:
+name, value
+```
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Registros de eventos:
+```
+Exibir úlima consulta do CPF - GET /api/v1/persons/{cpf}/last-query
+```

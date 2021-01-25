@@ -1,0 +1,58 @@
+<?php
+
+namespace App\Http\Controllers\Api\V1;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\CitizenRequest;
+use App\Models\Citizen;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
+
+class CitizenController extends Controller
+{
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\CitizenRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(CitizenRequest $request)
+    {
+        return Citizen::create($request->only('cpf', 'address', 'age', 'source_of_incoming'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Citizen  $citizen
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Request $request, Citizen $citizen)
+    {
+        Redis::set("person:$citizen->cpf:last-query", $request->user()->token()->client->name);
+        return $citizen;
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Citizen  $citizen
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Citizen $citizen)
+    {
+        return $citizen->update($request->only('cpf', 'address', 'age', 'source_of_incoming'));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Citizen  $citizen
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Citizen $citizen)
+    {
+        return $citizen->destroy($citizen->_id);
+    }
+}
