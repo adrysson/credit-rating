@@ -19,6 +19,11 @@
             </div>
 
             <div class="mt-4">
+                <x-jet-label for="cpf" value="{{ __('CPF') }}" />
+                <x-jet-input id="cpf" class="block mt-1 w-full" maxlength="15" type="text" name="cpf" :value="old('cpf')" required />
+            </div>
+
+            <div class="mt-4">
                 <x-jet-label for="address.street" value="{{ __('Logradouro') }}" />
                 <x-jet-input id="address.street" class="block mt-1 w-full" type="text" name="address[street]" :value="old('address.street')" required />
             </div>
